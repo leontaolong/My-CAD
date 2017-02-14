@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My First CAD</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+  <style>
+    canvas { border: 1px solid lightgray; }
+    .btn-group, .btn-toolbar { margin-bottom: .5em; }
+  </style>
+</head>
+<body class="container">
+  <h1>My First CAD System</h1>
+
+  <!-- The HTML containers for the views are provided -->
+  <div class="row">
+    <div id="graphics-view" class="col-xs-6">
+      <!-- Control buttons -->
+      <div class="btn-toolbar" data-toggle="buttons">
+        <div class="btn-group">
+          <label class="btn btn-default active"><input type="radio" name="actions" value="rectangle">Rectangle</input></label>
+          <label class="btn btn-default"><input type="radio" name="actions" value="circle">Circle</input></label>
+          <label class="btn btn-default"><input type="radio" name="actions" value="triangle">Triangle</input></label>
+        </div>
+        <div class="btn-group">
+          <label class="btn btn-default"><input type="radio" name="actions" value="move">
+            <span class="glyphicon glyphicon-move" aria-label="Move"></span>
+          </input></label>
+        </div>
+        <div class="btn-group">
+          <label class="btn btn-default"><input type="radio" name="actions" value="delete">
+            <span class="glyphicon glyphicon-trash" aria-label="Delete"></span>
+          </input></label>
+        </div>
+      </div>
+
+      <!-- drawn display -->
+      <canvas>
+        Sorry your browser doesn't support this application.
+        Try installing the latest version of <a href="https://www.google.com/chrome/">Google's Chrome browser</a>!		
+      </canvas>
+    </div>
+
+    <div id="text-view" class="col-xs-6">
+      <div class="btn-toolbar">
+        <div class="btn-group">
+          <button class="btn btn-default">Update</button>
+        </div>
+      </div>      
+      <textarea class="form-control"></textarea>
+    </div>
+  </div>
+  <script src="dist/bundle.js"></script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+{
+    "compilerOptions": {
+        "target": "es5",
+        "module": "commonjs",
+        "outDir": "ts-build/",
+        "alwaysStrict": true,
+        "compileOnSave":false
+    }
+}

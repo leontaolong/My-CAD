@@ -1,0 +1,26 @@
+{
+  "name": "cad-system",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.ts",
+  "scripts": {
+    "start": "node build/index.js",
+    "serve": "./node_modules/.bin/webpack-dev-server --inline --open",
+    "build": "./node_modules/.bin/webpack --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "YOUR NAME HERE",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/jquery": "^2.0.40",
+    "@types/node": "^7.0.4",
+    "awesome-typescript-loader": "^3.0.0-beta.18",
+    "source-map-loader": "^0.1.6",
+    "typescript": "^2.1.5",
+    "webpack": "^2.2.1",
+    "webpack-dev-server": "^2.3.0"
+  },
+  "dependencies": {
+    "jquery": "^3.1.1"
+  }
+}
