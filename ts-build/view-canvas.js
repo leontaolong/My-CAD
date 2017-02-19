@@ -3,7 +3,7 @@
  * A class to represent the View. Contains control buttons and an HTML5 canvas.
  */
 class View {
-    constructor(model, subject) {
+    constructor(model) {
         this.model = model;
         //constants for access
         this.canvas = $('#graphics-view canvas')[0];
@@ -13,7 +13,7 @@ class View {
         this.canvas.addEventListener('mouseup', (e) => { this.handleMouseUp(e); });
         this.canvas.addEventListener('mousemove', (e) => { this.handleMove(e); });
         //register self (delegation!) 
-        subject.registerObserver(this);
+        model.registerObserver(this);
         let optionButtons = $("#graphics-view input:radio");
         this.action = optionButtons.val(); //current (initial) selection    
         optionButtons.change((e) => { this.action = $(e.target).val(); console.log(this.action); }); //update action
@@ -40,6 +40,7 @@ class View {
             this.model.deleteShape(x, y);
         }
         else {
+            this.model.addShape(this.action, x, y);
         }
     }
     handleMouseUp(event) {

@@ -13,14 +13,14 @@ export class View implements Observer{
   private action:string; //what action we are doing (handled by View)
 
 
-  constructor(private model:Model, subject:Subject){
+  constructor(private model:Model){
     //event listeners (DOM for readability/speed)
     this.canvas.addEventListener('mousedown', (e) => {this.handleMouseDown(e)});
     this.canvas.addEventListener('mouseup', (e) => {this.handleMouseUp(e)});
     this.canvas.addEventListener('mousemove', (e) => {this.handleMove(e)});
     
     //register self (delegation!) 
-    subject.registerObserver(this);
+    model.registerObserver(this);
 
     let optionButtons = $("#graphics-view input:radio");
     this.action = optionButtons.val(); //current (initial) selection    
@@ -55,8 +55,8 @@ export class View implements Observer{
     else if(this.action === 'delete') {
       this.model.deleteShape(x,y);
     }
-    else { //a creation method
-      //TODO: create shape (based on action) at x,y coordinates
+    else { 
+      this.model.addShape(this.action, x, y);
     }
   }  
 
@@ -89,6 +89,6 @@ export class View implements Observer{
 }
 
 //Behaviors for Observers (subscribers)
-  interface Observer {
+export interface Observer {
     update():void;
 }

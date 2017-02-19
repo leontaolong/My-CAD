@@ -20,7 +20,7 @@ class Model {
         }
         return found; //return last shape
     }
-    addShapes(type, x, y) {
+    addShape(type, x, y) {
         if (type != null) {
             let makeShape = new ShapeFactory();
             let newShape;

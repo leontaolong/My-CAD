@@ -2,7 +2,6 @@
   "name": "cad-system",
   "version": "1.0.0",
   "description": "",
-  "author": "Leon Tao Long",
   "main": "index.ts",
   "scripts": {
     "start": "node build/index.js",
@@ -10,7 +9,7 @@
     "build": "./node_modules/.bin/webpack --watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "YOUR NAME HERE",
+  "author": "Leon Tao Long",
   "license": "ISC",
   "devDependencies": {
     "@types/jquery": "^2.0.40",
@@ -22,6 +21,7 @@
     "webpack-dev-server": "^2.3.0"
   },
   "dependencies": {
+    "bootstrap": "^3.3.7",
     "jquery": "^3.1.1"
   }
 }

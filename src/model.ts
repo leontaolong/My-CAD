@@ -1,4 +1,4 @@
-import {Shape, Circle, Rectangle, Triangle} from './shapes';
+import {Shape, Circle, Rectangle, Triangle, Observer} from './shapes';
 
 /**
  * The CAD drawing model currently being created
@@ -23,7 +23,7 @@ export class Model implements Subject{
     return found; //return last shape
   }
 
-  addShapes(type: string, x: number, y:number) {
+  addShape(type: string, x: number, y:number) {
     if (type != null) {
       let makeShape = new ShapeFactory();
       let newShape:Shape;
@@ -64,7 +64,7 @@ export class Model implements Subject{
   notifyAll():void {    
     this.observers.forEach((observer:Observer) => { 
       observer.update(this.shapes);
-    })
+    });
   }
 
   // //called by a sensor
@@ -108,7 +108,7 @@ class ShapeFactory extends Factory {
 
 
 //Behaviors for Subjects (publishers)
-interface Subject {
+export interface Subject {
   registerObserver(observer:Observer):void;
   removeObserver(observer:Observer):void;
   notifyAll():void;
