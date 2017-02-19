@@ -4,7 +4,7 @@ import {Model} from './model';
 /**
  * A class to represent the View. Contains control buttons and an HTML5 canvas.
  */
-export class View {
+export class View implements Observer{
   //constants for access
   readonly canvas = <HTMLCanvasElement>$('#graphics-view canvas')[0];
   readonly brush = this.canvas.getContext('2d'); //will be correctly typed!
@@ -13,11 +13,14 @@ export class View {
   private action:string; //what action we are doing (handled by View)
 
 
-  constructor(private model:Model){
+  constructor(private model:Model, subject:Subject){
     //event listeners (DOM for readability/speed)
     this.canvas.addEventListener('mousedown', (e) => {this.handleMouseDown(e)});
     this.canvas.addEventListener('mouseup', (e) => {this.handleMouseUp(e)});
     this.canvas.addEventListener('mousemove', (e) => {this.handleMove(e)});
+    
+    //register self (delegation!) 
+    subject.registerObserver(this);
 
     let optionButtons = $("#graphics-view input:radio");
     this.action = optionButtons.val(); //current (initial) selection    
@@ -50,7 +53,7 @@ export class View {
       this.selected = <DrawableShape>this.model.getShapeAt(x,y);
     }
     else if(this.action === 'delete') {
-      //TODO: delete shape at x,y coordinates
+      this.model.deleteShape(x,y);
     }
     else { //a creation method
       //TODO: create shape (based on action) at x,y coordinates
@@ -78,4 +81,14 @@ export class View {
     canvasElem.attr('height', ratio*canvasElem.width());
     this.display();
   }
+
+  /* Observer interface */
+  update() {
+    this.display();
+  }
+}
+
+//Behaviors for Observers (subscribers)
+  interface Observer {
+    update():void;
 }
