@@ -66,12 +66,6 @@ export class Model implements Subject{
       observer.update(this.shapes);
     });
   }
-
-  // //called by a sensor
-  // updateTemperature(temp:number){
-  //   this.temperature = temp; //update local variable
-  //   this.notifyAll();
-  // }
 }
 
 //an interface for a complex factory
@@ -105,7 +99,6 @@ class ShapeFactory extends Factory {
     return new Rectangle(cx,cy, this.RECT_WIDTH, this.TRIAN_EDGE);
   }
 }
-
 
 //Behaviors for Subjects (publishers)
 export interface Subject {
