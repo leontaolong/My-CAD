@@ -2,6 +2,7 @@
   "name": "cad-system",
   "version": "1.0.0",
   "description": "",
+  "author": "Leon Tao Long",
   "main": "index.ts",
   "scripts": {
     "start": "node build/index.js",
