@@ -1,4 +1,5 @@
-import {Shape, Circle, Rectangle, Triangle, Observer} from './shapes';
+import {Shape, Circle, Rectangle, Triangle, DrawableShape} from './shapes';
+import {Observer} from './view-canvas';
 
 /**
  * The CAD drawing model currently being created
@@ -41,11 +42,13 @@ export class Model implements Subject{
               console.log("invalid shape type");
       }
       this.shapes.push(newShape);
+      this.notifyAll();
     }    
   }
 
   deleteShape(x:number, y:number) {
-    this.shapes = this.shapes.filter(shape => shape !== this.getShapes(x,y));
+    this.shapes = this.shapes.filter(shape => shape !== this.getShapeAt(x,y));
+    this.notifyAll();
   }
 
   modifyShape() {
@@ -63,7 +66,7 @@ export class Model implements Subject{
 
   notifyAll():void {    
     this.observers.forEach((observer:Observer) => { 
-      observer.update(this.shapes);
+      observer.update(<DrawableShape[]>this.shapes);
     });
   }
 }

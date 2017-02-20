@@ -2,37 +2,38 @@
 /**
  * A class to represent the View. Contains control buttons and an HTML5 canvas.
  */
-class View {
-    constructor(model) {
+var View = (function () {
+    function View(model) {
+        var _this = this;
         this.model = model;
         //constants for access
         this.canvas = $('#graphics-view canvas')[0];
         this.brush = this.canvas.getContext('2d'); //will be correctly typed!
         //event listeners (DOM for readability/speed)
-        this.canvas.addEventListener('mousedown', (e) => { this.handleMouseDown(e); });
-        this.canvas.addEventListener('mouseup', (e) => { this.handleMouseUp(e); });
-        this.canvas.addEventListener('mousemove', (e) => { this.handleMove(e); });
+        this.canvas.addEventListener('mousedown', function (e) { _this.handleMouseDown(e); });
+        this.canvas.addEventListener('mouseup', function (e) { _this.handleMouseUp(e); });
+        this.canvas.addEventListener('mousemove', function (e) { _this.handleMove(e); });
         //register self (delegation!) 
         model.registerObserver(this);
-        let optionButtons = $("#graphics-view input:radio");
+        var optionButtons = $("#graphics-view input:radio");
         this.action = optionButtons.val(); //current (initial) selection    
-        optionButtons.change((e) => { this.action = $(e.target).val(); console.log(this.action); }); //update action
+        optionButtons.change(function (e) { _this.action = $(e.target).val(); console.log(_this.action); }); //update action
         //responsive canvas
-        $(window).resize(() => { this.resizeCanvas(); }); //call function on window resize
+        $(window).resize(function () { _this.resizeCanvas(); }); //call function on window resize
         this.resizeCanvas(); //initial sizing
     }
-    display() {
+    View.prototype.display = function (shapes) {
         //erase canvas
         this.brush.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        let shapes = this.model.getShapes(); //read from the model
         //draw all the shapes!
-        for (let shape of shapes) {
+        for (var _i = 0, shapes_1 = shapes; _i < shapes_1.length; _i++) {
+            var shape = shapes_1[_i];
             shape.draw(this.brush);
         }
-    }
-    handleMouseDown(event) {
-        let x = event.offsetX;
-        let y = event.offsetY;
+    };
+    View.prototype.handleMouseDown = function (event) {
+        var x = event.offsetX;
+        var y = event.offsetY;
         if (this.action === 'move') {
             this.selected = this.model.getShapeAt(x, y);
         }
@@ -42,27 +43,28 @@ class View {
         else {
             this.model.addShape(this.action, x, y);
         }
-    }
-    handleMouseUp(event) {
+    };
+    View.prototype.handleMouseUp = function (event) {
         this.selected = undefined;
-    }
-    handleMove(event) {
-        let x = event.offsetX;
-        let y = event.offsetY;
+    };
+    View.prototype.handleMove = function (event) {
+        var x = event.offsetX;
+        var y = event.offsetY;
         if (this.selected) {
         }
-    }
+    };
     //make Canvas responsive (adapted from http://ameijer.nl/2011/08/resizable-html5-canvas/)
-    resizeCanvas() {
-        const ratio = 1; //4/3;
-        let canvasElem = $(this.canvas);
+    View.prototype.resizeCanvas = function () {
+        var ratio = 1; //4/3;
+        var canvasElem = $(this.canvas);
         canvasElem.attr('width', canvasElem.parent().width());
         canvasElem.attr('height', ratio * canvasElem.width());
         this.display();
-    }
+    };
     /* Observer interface */
-    update() {
-        this.display();
-    }
-}
+    View.prototype.update = function (shapes) {
+        this.display(shapes);
+    };
+    return View;
+}());
 exports.View = View;

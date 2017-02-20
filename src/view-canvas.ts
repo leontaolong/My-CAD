@@ -33,11 +33,9 @@ export class View implements Observer{
   }
 
 
-  display() {
+  display(shapes: DrawableShape[]) {
     //erase canvas
     this.brush.clearRect(0,0, this.canvas.width, this.canvas.height);
-
-    let shapes = <DrawableShape[]>this.model.getShapes(); //read from the model
 
     //draw all the shapes!
     for(let shape of shapes){
@@ -83,12 +81,12 @@ export class View implements Observer{
   }
 
   /* Observer interface */
-  update() {
-    this.display();
+  update(shapes: DrawableShape[]) {
+    this.display(shapes);
   }
 }
 
 //Behaviors for Observers (subscribers)
 export interface Observer {
-    update():void;
+    update(shapes: DrawableShape[]):void;
 }

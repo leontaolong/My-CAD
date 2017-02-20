@@ -1,27 +1,41 @@
-interface CanvasSetter {
-    addShape();
-    deleteShape();
+import {Model} from './model';
+import {View as CanvasView} from './view-canvas';
+import {View as TextView} from './view-text';
+
+export class CanvasController {
+  constructor(private model:Model, private view:CanvasView) {}
+  addShape() {
+
+  }
+
+  modifyShape() {
+
+  }
+
+  moveShape() {
+
+  }
+
+  deleteShape() {
+
+  }
 }
 
-interface TextSetter {
-    editShape();
-}
+export class TextController {
+  constructor(private model:Model, private view:TextView) {}
+  addShape() {
 
-class CanvasView implements CanvasSetter{
-    addShape(){
+  }
 
-    }
+  modifyShape() {
 
-    deleteShape(){
+  }
 
-    }
+  moveShape() {
 
-}
+  }
 
-class TextView implements TextSetter{
-    
-    editShape(){
+  deleteShape() {
 
-    }
-
+  }
 }
