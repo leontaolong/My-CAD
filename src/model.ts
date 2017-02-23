@@ -51,8 +51,13 @@ export class Model implements Subject{
     this.notifyAll();
   }
 
-  modifyShape() {
-
+  modifyShape(newShapes) {
+    for (let i =0; i < newShapes.length; i++) {
+      //code here using lines[i] which will give you each line
+      let shape: Shape = JSON.parse(newShapes[i]);
+      this.shapes[i].updateProperties(shape);
+    }
+    this.notifyAll();
   }
 
   moveShape(shape:Shape, x:number, y:number) {
@@ -85,11 +90,11 @@ abstract class Factory {
 
 //a concrete class that implements the Factory
 class ShapeFactory extends Factory {
-  CIRCLE_RADIUS = 60;
-  RECT_WIDTH = 50;
-  RECT_HEIGHT = 30;
-  TRIAN_HEIGHT = 40;
-  TRIAN_EDGE = 40;
+  private CIRCLE_RADIUS = 40;
+  private RECT_WIDTH = 40;
+  private RECT_HEIGHT = 30;
+  private TRIAN_HEIGHT = 40;
+  private TRIAN_EDGE = 40;
 
   constructor() {
       super();
@@ -99,9 +104,9 @@ class ShapeFactory extends Factory {
     return new Circle(cx, cy, this.CIRCLE_RADIUS);
   }
   createTriangle(cx:number, cy:number) :Triangle {
-    return new Triangle(cy, cy + 0.5 * this.TRIAN_HEIGHT, 
-                        cx - 0.5 * this.TRIAN_EDGE , cy, 
-                        cx + 0.5 * this.TRIAN_EDGE, cy);
+    return new Triangle(cx, cy + 0.5 * this.TRIAN_HEIGHT,
+      cx - 0.5 * this.TRIAN_EDGE, cy - 0.5 * this.TRIAN_HEIGHT,
+      cx + 0.5 * this.TRIAN_EDGE, cy -  0.5 * this.TRIAN_HEIGHT);
   }
 
 // createTriangle(cx: number, cy: number): Triangle {

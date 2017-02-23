@@ -21,7 +21,8 @@ var TextController = (function () {
         this.model = model;
         this.view = view;
     }
-    TextController.prototype.modifyShape = function () {
+    TextController.prototype.modifyShape = function (shapesArray) {
+        this.model.modifyShape(shapesArray);
     };
     return TextController;
 }());

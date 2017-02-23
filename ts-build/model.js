@@ -52,7 +52,13 @@ var Model = (function () {
         this.shapes = this.shapes.filter(function (shape) { return shape !== _this.getShapeAt(x, y); });
         this.notifyAll();
     };
-    Model.prototype.modifyShape = function () {
+    Model.prototype.modifyShape = function (newShapes) {
+        for (var i = 0; i < newShapes.length; i++) {
+            //code here using lines[i] which will give you each line
+            var shape = JSON.parse(newShapes[i]);
+            this.shapes[i].updateProperties(shape);
+        }
+        this.notifyAll();
     };
     Model.prototype.moveShape = function (shape, x, y) {
         shape.setPosition(x, y);
@@ -85,8 +91,8 @@ var ShapeFactory = (function (_super) {
     __extends(ShapeFactory, _super);
     function ShapeFactory() {
         var _this = _super.call(this) || this;
-        _this.CIRCLE_RADIUS = 60;
-        _this.RECT_WIDTH = 50;
+        _this.CIRCLE_RADIUS = 40;
+        _this.RECT_WIDTH = 40;
         _this.RECT_HEIGHT = 30;
         _this.TRIAN_HEIGHT = 40;
         _this.TRIAN_EDGE = 40;
@@ -96,7 +102,7 @@ var ShapeFactory = (function (_super) {
         return new shapes_1.Circle(cx, cy, this.CIRCLE_RADIUS);
     };
     ShapeFactory.prototype.createTriangle = function (cx, cy) {
-        return new shapes_1.Triangle(cy, cy + 0.5 * this.TRIAN_HEIGHT, cx - 0.5 * this.TRIAN_EDGE, cy, cx + 0.5 * this.TRIAN_EDGE, cy);
+        return new shapes_1.Triangle(cx, cy + 0.5 * this.TRIAN_HEIGHT, cx - 0.5 * this.TRIAN_EDGE, cy - 0.5 * this.TRIAN_HEIGHT, cx + 0.5 * this.TRIAN_EDGE, cy - 0.5 * this.TRIAN_HEIGHT);
     };
     // createTriangle(cx: number, cy: number): Triangle {
     //     return new Triangle(cx, cy ,

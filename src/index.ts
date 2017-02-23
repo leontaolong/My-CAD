@@ -1,10 +1,10 @@
 import 'bootstrap'; //bootstrap.js for button toggling
-
 import {Model} from './model';
 import {View as CanvasView} from './view-canvas';
 import {View as TextView} from './view-text';
 import {TextController} from './controller';
 import {CanvasController} from './controller';
+var autoResize = require('autoresize-textarea');
 
 let model = new Model();
 

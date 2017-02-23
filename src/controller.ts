@@ -19,7 +19,7 @@ export class CanvasController {
 
 export class TextController {
   constructor(private model:Model, private view:TextView) {}
-  modifyShape() {
-
+  modifyShape(shapesArray) {
+      this.model.modifyShape(shapesArray);
   }
 }
