@@ -54,6 +54,10 @@ var Model = (function () {
     };
     Model.prototype.modifyShape = function () {
     };
+    Model.prototype.moveShape = function (shape, x, y) {
+        shape.setPosition(x, y);
+        this.notifyAll();
+    };
     /* implement Subject interface */
     Model.prototype.registerObserver = function (observer) {
         this.observers.push(observer);
@@ -94,6 +98,11 @@ var ShapeFactory = (function (_super) {
     ShapeFactory.prototype.createTriangle = function (cx, cy) {
         return new shapes_1.Triangle(cy, cy + 0.5 * this.TRIAN_HEIGHT, cx - 0.5 * this.TRIAN_EDGE, cy, cx + 0.5 * this.TRIAN_EDGE, cy);
     };
+    // createTriangle(cx: number, cy: number): Triangle {
+    //     return new Triangle(cx, cy ,
+    //       cx - 0.5 * this.DEFAULT_WIDTH, cy - this.DEFAULT_HEIGHT,
+    //       cx + 0.5 * this.DEFAULT_WIDTH, cy - this.DEFAULT_HEIGHT);
+    //   }
     ShapeFactory.prototype.createRectangle = function (cx, cy) {
         return new shapes_1.Rectangle(cx, cy, this.RECT_WIDTH, this.TRIAN_EDGE);
     };

@@ -4,13 +4,14 @@ var CanvasController = (function () {
         this.model = model;
         this.view = view;
     }
-    CanvasController.prototype.addShape = function () {
+    CanvasController.prototype.addShape = function (type, x, y) {
+        this.model.addShape(type, x, y);
     };
-    CanvasController.prototype.modifyShape = function () {
+    CanvasController.prototype.moveShape = function (shape, x, y) {
+        this.model.moveShape(shape, x, y);
     };
-    CanvasController.prototype.moveShape = function () {
-    };
-    CanvasController.prototype.deleteShape = function () {
+    CanvasController.prototype.deleteShape = function (x, y) {
+        this.model.deleteShape(x, y);
     };
     return CanvasController;
 }());
@@ -20,13 +21,7 @@ var TextController = (function () {
         this.model = model;
         this.view = view;
     }
-    TextController.prototype.addShape = function () {
-    };
     TextController.prototype.modifyShape = function () {
-    };
-    TextController.prototype.moveShape = function () {
-    };
-    TextController.prototype.deleteShape = function () {
     };
     return TextController;
 }());

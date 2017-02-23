@@ -22,6 +22,9 @@ var View = (function () {
         $(window).resize(function () { _this.resizeCanvas(); }); //call function on window resize
         this.resizeCanvas(); //initial sizing
     }
+    View.prototype.setController = function (controller) {
+        this.controller = controller;
+    };
     View.prototype.display = function (shapes) {
         //erase canvas
         this.brush.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -38,10 +41,10 @@ var View = (function () {
             this.selected = this.model.getShapeAt(x, y);
         }
         else if (this.action === 'delete') {
-            this.model.deleteShape(x, y);
+            this.controller.deleteShape(x, y);
         }
         else {
-            this.model.addShape(this.action, x, y);
+            this.controller.addShape(this.action, x, y);
         }
     };
     View.prototype.handleMouseUp = function (event) {
@@ -51,6 +54,7 @@ var View = (function () {
         var x = event.offsetX;
         var y = event.offsetY;
         if (this.selected) {
+            this.controller.moveShape(this.selected, x, y);
         }
     };
     //make Canvas responsive (adapted from http://ameijer.nl/2011/08/resizable-html5-canvas/)
@@ -59,7 +63,7 @@ var View = (function () {
         var canvasElem = $(this.canvas);
         canvasElem.attr('width', canvasElem.parent().width());
         canvasElem.attr('height', ratio * canvasElem.width());
-        this.display();
+        // this.display();
     };
     /* Observer interface */
     View.prototype.update = function (shapes) {

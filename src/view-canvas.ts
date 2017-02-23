@@ -1,6 +1,6 @@
 import {DrawableShape} from './shapes';
 import {Model} from './model';
-
+import {CanvasController} from './controller';
 /**
  * A class to represent the View. Contains control buttons and an HTML5 canvas.
  */
@@ -11,6 +11,7 @@ export class View implements Observer{
 
   private selected:DrawableShape; //selected state is handled by View
   private action:string; //what action we are doing (handled by View)
+  private controller:CanvasController;
 
 
   constructor(private model:Model){
@@ -32,6 +33,9 @@ export class View implements Observer{
 
   }
 
+  setController(controller:CanvasController) {
+    this.controller = controller;
+  }
 
   display(shapes: DrawableShape[]) {
     //erase canvas
@@ -51,10 +55,10 @@ export class View implements Observer{
       this.selected = <DrawableShape>this.model.getShapeAt(x,y);
     }
     else if(this.action === 'delete') {
-      this.model.deleteShape(x,y);
+      this.controller.deleteShape(x,y);
     }
     else { 
-      this.model.addShape(this.action, x, y);
+      this.controller.addShape(this.action, x, y);
     }
   }  
 
@@ -67,7 +71,7 @@ export class View implements Observer{
     let y = event.offsetY;
 
     if(this.selected){
-      //TODO: move the selected shape to x,y
+      this.controller.moveShape(this.selected, x, y);
     }
   }
 
@@ -77,7 +81,7 @@ export class View implements Observer{
     let canvasElem = $(this.canvas);
     canvasElem.attr('width', canvasElem.parent().width());
     canvasElem.attr('height', ratio*canvasElem.width());
-    this.display();
+    // this.display();
   }
 
   /* Observer interface */

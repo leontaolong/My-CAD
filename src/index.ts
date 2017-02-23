@@ -7,6 +7,12 @@ import {TextController} from './controller';
 import {CanvasController} from './controller';
 
 let model = new Model();
+
 let canvasView = new CanvasView(model);
 let textView = new TextView(model);
-// let ctrl:Controller = new Controller();
+
+let canvasController = new CanvasController(model, canvasView);
+let textController = new TextController(model, textView);
+
+canvasView.setController(canvasController);
+textView.setController(textController);

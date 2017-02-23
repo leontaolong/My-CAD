@@ -55,6 +55,11 @@ export class Model implements Subject{
 
   }
 
+  moveShape(shape:Shape, x:number, y:number) {
+    shape.setPosition(x, y);
+    this.notifyAll();
+  }
+
   /* implement Subject interface */
   registerObserver(observer:Observer):void {
     this.observers.push(observer);
@@ -98,6 +103,13 @@ class ShapeFactory extends Factory {
                         cx - 0.5 * this.TRIAN_EDGE , cy, 
                         cx + 0.5 * this.TRIAN_EDGE, cy);
   }
+
+// createTriangle(cx: number, cy: number): Triangle {
+//     return new Triangle(cx, cy ,
+//       cx - 0.5 * this.DEFAULT_WIDTH, cy - this.DEFAULT_HEIGHT,
+//       cx + 0.5 * this.DEFAULT_WIDTH, cy - this.DEFAULT_HEIGHT);
+//   }
+
   createRectangle(cx:number, cy:number):Rectangle {
     return new Rectangle(cx,cy, this.RECT_WIDTH, this.TRIAN_EDGE);
   }

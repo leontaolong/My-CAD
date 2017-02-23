@@ -4,38 +4,22 @@ import {View as TextView} from './view-text';
 
 export class CanvasController {
   constructor(private model:Model, private view:CanvasView) {}
-  addShape() {
-
+  addShape(type, x, y) {
+    this.model.addShape(type, x, y);
   }
 
-  modifyShape() {
-
+  moveShape(shape, x, y) {
+    this.model.moveShape(shape, x, y);
   }
 
-  moveShape() {
-
-  }
-
-  deleteShape() {
-
+  deleteShape(x, y) {
+    this.model.deleteShape(x, y);
   }
 }
 
 export class TextController {
   constructor(private model:Model, private view:TextView) {}
-  addShape() {
-
-  }
-
   modifyShape() {
-
-  }
-
-  moveShape() {
-
-  }
-
-  deleteShape() {
 
   }
 }
