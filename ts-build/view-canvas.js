@@ -63,6 +63,7 @@ var View = (function () {
         var canvasElem = $(this.canvas);
         canvasElem.attr('width', canvasElem.parent().width());
         canvasElem.attr('height', ratio * canvasElem.width());
+        this.model.notifyAll();
         // this.display();
     };
     /* Observer interface */
