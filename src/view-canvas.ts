@@ -1,16 +1,17 @@
 import {DrawableShape} from './shapes';
 import {Model} from './model';
-
+import {CanvasController} from './controller';
 /**
  * A class to represent the View. Contains control buttons and an HTML5 canvas.
  */
-export class View {
+export class View implements Observer{
   //constants for access
   readonly canvas = <HTMLCanvasElement>$('#graphics-view canvas')[0];
   readonly brush = this.canvas.getContext('2d'); //will be correctly typed!
 
   private selected:DrawableShape; //selected state is handled by View
   private action:string; //what action we are doing (handled by View)
+  private controller:CanvasController;
 
 
   constructor(private model:Model){
@@ -18,6 +19,9 @@ export class View {
     this.canvas.addEventListener('mousedown', (e) => {this.handleMouseDown(e)});
     this.canvas.addEventListener('mouseup', (e) => {this.handleMouseUp(e)});
     this.canvas.addEventListener('mousemove', (e) => {this.handleMove(e)});
+    
+    //register self (delegation!) 
+    model.registerObserver(this);
 
     let optionButtons = $("#graphics-view input:radio");
     this.action = optionButtons.val(); //current (initial) selection    
@@ -29,12 +33,13 @@ export class View {
 
   }
 
+  setController(controller:CanvasController) {
+    this.controller = controller;
+  }
 
-  display() {
+  display(shapes: DrawableShape[]) {
     //erase canvas
     this.brush.clearRect(0,0, this.canvas.width, this.canvas.height);
-
-    let shapes = <DrawableShape[]>this.model.getShapes(); //read from the model
 
     //draw all the shapes!
     for(let shape of shapes){
@@ -50,10 +55,10 @@ export class View {
       this.selected = <DrawableShape>this.model.getShapeAt(x,y);
     }
     else if(this.action === 'delete') {
-      //TODO: delete shape at x,y coordinates
+      this.controller.deleteShape(x,y);
     }
-    else { //a creation method
-      //TODO: create shape (based on action) at x,y coordinates
+    else { 
+      this.controller.addShape(this.action, x, y);
     }
   }  
 
@@ -66,7 +71,7 @@ export class View {
     let y = event.offsetY;
 
     if(this.selected){
-      //TODO: move the selected shape to x,y
+      this.controller.moveShape(this.selected, x, y);
     }
   }
 
@@ -76,6 +81,17 @@ export class View {
     let canvasElem = $(this.canvas);
     canvasElem.attr('width', canvasElem.parent().width());
     canvasElem.attr('height', ratio*canvasElem.width());
-    this.display();
+    this.model.notifyAll();
+    // this.display();
   }
+
+  /* Observer interface */
+  update(shapes: DrawableShape[]) {
+    this.display(shapes);
+  }
+}
+
+//Behaviors for Observers (subscribers)
+export interface Observer {
+    update(shapes: DrawableShape[]):void;
 }
