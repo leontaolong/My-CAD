@@ -1,3 +1,3 @@
-# My First CAD
+# My CAD System
 
-This module is a _very_ simple CAD (drawing) program using a Model-View-Controller architecture
+This module is a very simple CAD (Computer Aided Design) drawing program using a Model-View-Controller architecture
